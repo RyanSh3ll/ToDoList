@@ -26,7 +26,7 @@ def removeTask():
     remove = askstring("Remove","Enter the task number you would like to remove:")
     __tasks = listTasks()
     for i in __tasks:
-        if remove in i[0:1]: #TODO Fix this, it does not work as expected.
+        if remove in i[0:2]:
             __tasks.remove(i)
     with open('ToDo.txt','w') as editing:
         for i in __tasks:
