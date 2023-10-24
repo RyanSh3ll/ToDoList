@@ -19,11 +19,23 @@ root.resizable(False,False)
 def listTasks():
     with open("ToDo.txt",'r') as reading:
         tasks = reading.readlines()
-        return tasks # maybe recursion or something
+        return tasks
+    
+def windowUpdate():
+    global taskList
+    taskList.delete("0.0","end")
+    taskList = tkinter.Text(height=28.6, width = 70, font=('Calibri',20))
+    
+    for i in range(len(listTasks())):
+        taskList.insert(tkinter.END,f'{listTasks()[i]}',"white")# trying to display tasks line by line 
+
+        #Places the textbox on the window, makes the textbox read only
+        taskList.place(relx = 0.1,rely = 0.2)
+        taskList.config(state="disabled")
 
 def removeTask():
     taskList.config(state="normal")
-    remove = askstring("Remove","Enter the task number you would like to remove:")
+    remove = askstring("Remove","Enter the task number you would like to remove:")#TODO change this to an entry box
     __tasks = listTasks()
     for i in __tasks:
         if remove in i[0:2]:
@@ -31,6 +43,8 @@ def removeTask():
     with open('ToDo.txt','w') as editing:
         for i in __tasks:
             editing.write(i)
+            taskList.destroy()
+        windowUpdate()
         
 taskList = tkinter.Text(height=28.6, width = 70, font=('Calibri',20))
 
